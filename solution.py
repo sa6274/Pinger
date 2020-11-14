@@ -65,7 +65,6 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
         if timeLeft <= 0:
             return "Request timed out.", size
 
-
 def sendOnePing(mySocket, destAddr, ID):
     # Header is type (8), code (8), checksum (16), id (16), sequence (16)
     myChecksum = 0
@@ -118,7 +117,7 @@ def ping(host, timeout=1):
     for i in range(4):
         try:
             delay, size = doOnePing(dest, timeout)
-            print("Reply from {}: time={}".format(dest, str(round(delay, 2))))
+            print("Reply from {}: time={}".format(dest, (round(delay*1000, 2))))
             pingtime.append(delay)
             time.sleep(1)  # one second
         except Exception:
@@ -127,13 +126,10 @@ def ping(host, timeout=1):
 
     print("Ping Statistics for", dest)
     avg_time = sum(pingtime) / len(pingtime)
-    print("\tMin. = {}ms, Avg. = {}ms, Max. = {}ms, Std. Dev. = {}ms".format((round(min(pingtime),2)),
-                                                                             (round(avg_time,2)),
-                                                                             (round(max(pingtime),2)),
-                                                                             (round(statistics.stdev(pingtime),2))))
+    print("\tMin. = {}ms, Avg. = {}ms, Max. = {}ms, Std. Dev. = {}ms".format(min(pingtime),avg_time, max(pingtime), statistics.stdev(pingtime)))
 
-    vars = [str(round(max(pingtime),2)), str(round(min(pingtime),2)), str(round((avg_time),2))]
-
+    vars = [str(round(max(pingtime*1000),2)), str(round((avg_time*1000),2)), str(round(min(pingtime*1000),2)), str(round(statistics.stdev(pingtime), 2))]
+    print(vars)
     return vars
 
 if __name__ == '__main__':
