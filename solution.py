@@ -126,9 +126,9 @@ def ping(host, timeout=1):
 
     print("Ping Statistics for", dest)
     avg_time = sum(pingtime) / len(pingtime)
-    print("\tMin. = {}ms, Avg. = {}ms, Max. = {}ms, Std. Dev. = {}ms".format(min(pingtime),avg_time, max(pingtime), statistics.stdev(pingtime)))
+    print("\tMin. = {}ms, Avg. = {}ms, Max. = {}ms, Std. Dev. = {}ms".format(round(min(pingtime)*1000,2),round((avg_time)*1000,2), round(max(pingtime)*1000,2), round(statistics.stdev(pingtime)*1000,2)))
 
-    vars = [str(round(max(pingtime*1000),2)), str(round((avg_time*1000),2)), str(round(min(pingtime*1000),2)), str(round(statistics.stdev(pingtime), 2))]
+    vars = [str(round(min(pingtime)*1000,2)), str(round((avg_time)*1000,2)), str(round(max(pingtime)*1000,2)), str(round(statistics.stdev(pingtime)*1000, 2))]
     print(vars)
     return vars
 
